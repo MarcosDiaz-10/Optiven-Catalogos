@@ -341,13 +341,21 @@ export default function PageGestionCatalogosUi() {
                     ))}
                 </div>
 
-                <div className="w-full flex justify-end my-4">
+                <div className="w-full flex justify-end my-4 gap-5">
                     <Button
                         className="bg-blue-600 w-[20%] py-6 hover:bg-blue-700 text-white rounded-xl"
 
                     >
 
                         <Link href='/home/upload' className="flex items-center"><Plus className="h-4 w-4 mr-2" /> Subir Catálogo</Link>
+
+                    </Button>
+                    <Button
+                        className="bg-blue-600 w-[20%] py-6 hover:bg-blue-700 text-white rounded-xl"
+
+                    >
+
+                        <Link href='/home/upload-novedad' className="flex items-center"><Plus className="h-4 w-4 mr-2" /> Subir Novedad</Link>
 
                     </Button>
                 </div>

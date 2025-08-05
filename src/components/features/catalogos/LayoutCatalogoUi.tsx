@@ -14,6 +14,7 @@ import { ErrorComponent } from "@/components/ErrorComponent";
 import { infoCatalogo } from "@/types";
 import LoaidngLayoutCatalogoUi from "@/components/loadings/LoadingLayoutCatalogoUi";
 import { Badge } from "@/components/ui/badge";
+import ScrollToTop from "@/components/utils/ScrollToTop";
 
 
 export const LayoutCatalogoUi = ({ idProveedor, idCatalogo }: { idProveedor: string, idCatalogo: string }) => {
@@ -50,6 +51,7 @@ export const LayoutCatalogoUi = ({ idProveedor, idCatalogo }: { idProveedor: str
 
     return (
         <>
+            <ScrollToTop />
             {error && <ErrorComponent msgError={error} isError={!!error} />}
             {!error &&
 

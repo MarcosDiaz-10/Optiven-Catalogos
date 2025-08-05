@@ -7,12 +7,12 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import Image from "next/image"
+import Link from "next/link"
 
 
 export const CardHome = ({ title, description, img, link }: { title: string, description: string, img: string, link: string }) => {
-    console.log(link)
     return (
-        <Card className="cursor-pointer gap-2 flex flex-col h-[500px]" >
+        <Card className="cursor-pointer gap-2 flex flex-col h-min" >
             <CardHeader className="">
                 <CardTitle className="text-2xl font-semibold ">{title}</CardTitle>
             </CardHeader>
@@ -25,7 +25,7 @@ export const CardHome = ({ title, description, img, link }: { title: string, des
                     <CardDescription className="text-start text-gray-500">{description}</CardDescription>
                 </div>
                 <div className="w-full flex items-center justify-end pt-3">
-                    <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100">Ver Catálogo</Button>
+                    <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100" ><Link href={link} scroll={false}>Ver Catálogo</Link></Button>
                 </div>
 
             </CardContent>

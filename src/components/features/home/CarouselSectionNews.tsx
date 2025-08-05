@@ -1,14 +1,10 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { CardHome } from "./CardHome"
+import { news } from "@/types"
 
 
-interface items {
-    title: string,
-    description: string,
-    img: string,
-    link: string
-}
-export const CarouselSectionNews = ({ items }: { items: items[] }) => {
+
+export const CarouselSectionNews = ({ items }: { items: news[] }) => {
     return (
         <Carousel
             opts={{
@@ -20,7 +16,7 @@ export const CarouselSectionNews = ({ items }: { items: items[] }) => {
                 {
                     items.map((item, index) => (
                         <CarouselItem key={index} className="basis-1/4 h-full">
-                            <CardHome title={item.title} description={item.description} img={item.img} link={item.link} />
+                            <CardHome title={item.titulo} description={item.descnove} img={item.imagenportada} link={item.link} />
                         </CarouselItem>
                     ))
                 }

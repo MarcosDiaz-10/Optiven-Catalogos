@@ -6,22 +6,19 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
+import { news } from "@/types"
 import clsx from "clsx"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
+import Link from "next/link"
 import { useRef } from "react"
 
-interface element {
-    isImage: boolean,
-    link?: string
 
-}
-
-
-export const SliceComponent = ({ elements, height }: { elements: element[], height: string }) => {
+export const SliceComponent = ({ elements, height }: { elements: news[], height: string }) => {
     const autoplayPlugin = useRef(
         Autoplay({ delay: 4000, stopOnInteraction: false })
     )
+    console.log(elements)
     return (
         <Carousel
             plugins={[autoplayPlugin.current]}
@@ -38,19 +35,11 @@ export const SliceComponent = ({ elements, height }: { elements: element[], heig
                 {
                     elements.map((element, index) => (
                         <CarouselItem key={index} className={clsx("")}>
-                            {
-                                element.isImage
-                                    ? (
-                                        <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={element?.link || ''} alt="" /></div>
-                                    )
-                                    : (
-                                        <div className="h-full w-full">
-                                            <video className="h-full w-full object-cover " loop playsInline preload="auto" autoPlay muted>
-                                                <source src={element.link} type="video/mp4" />
-                                            </video>
-                                        </div>
-                                    )
-                            }
+
+                            <Link href={element.link}>
+                                <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={element?.imagenportada || ''} alt="" /></div>
+                            </Link>
+
                         </CarouselItem>
                     ))
                 }

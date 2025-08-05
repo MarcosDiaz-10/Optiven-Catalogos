@@ -48,3 +48,21 @@ export interface paisType {
     codpais: string
     descrip: string
 }
+
+
+export interface news {
+    codnovedad: string;
+    codtipo: string;
+    descnove: string;
+    enslice: boolean;
+    entop: boolean;
+    imagenportada: string;
+    link: string;
+    nombretipo: string;
+    titulo: string
+}
+
+export interface section {
+    titleSection: string;
+    items: news[]
+}
