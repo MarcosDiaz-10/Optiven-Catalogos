@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
         hostname: '192.168.0.144',
         port: '3000',
       },
+      {
+        protocol: 'http',
+        hostname: '174.138.187.210'
+      },
+      {
+        protocol: 'http',
+        hostname: 'optivenhost.net'
+      },
       // Podés agregar más dominios aquí en el futuro
     ]
   },
