@@ -1,10 +1,8 @@
 import { Button } from "@/components/ui/button"
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -12,6 +10,7 @@ import Image from "next/image"
 
 
 export const CardHome = ({ title, description, img, link }: { title: string, description: string, img: string, link: string }) => {
+    console.log(link)
     return (
         <Card className="cursor-pointer gap-2 flex flex-col h-[500px]" >
             <CardHeader className="">

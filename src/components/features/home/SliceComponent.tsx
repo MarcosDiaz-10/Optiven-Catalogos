@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/carousel"
 import clsx from "clsx"
 import Autoplay from "embla-carousel-autoplay"
+import Image from "next/image"
 import { useRef } from "react"
 
 interface element {
@@ -40,7 +41,7 @@ export const SliceComponent = ({ elements, height }: { elements: element[], heig
                             {
                                 element.isImage
                                     ? (
-                                        <div className="h-full w-full"><img className="h-full w-full object-cover " src={element.link} alt="" /></div>
+                                        <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={element?.link || ''} alt="" /></div>
                                     )
                                     : (
                                         <div className="h-full w-full">

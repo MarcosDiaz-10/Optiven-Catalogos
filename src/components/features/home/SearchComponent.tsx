@@ -1,6 +1,5 @@
 'use client'
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { z } from 'zod';
@@ -9,15 +8,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
-    FormLabel,
-    FormMessage,
 } from "@/components/ui/form"
 import { useState } from "react"
 import clsx from "clsx"
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 const recentSearches = [
@@ -32,28 +29,43 @@ const searchSchema = z.object({
 })
 
 export const SearchComponent = () => {
+    const params = useSearchParams()
     const form = useForm<z.infer<typeof searchSchema>>({
         resolver: zodResolver(searchSchema),
         defaultValues: {
-            search: "",
+            search: params.get('search') || '',
         },
     })
 
+    const router = useRouter()
+
     const [isFocus, setIsFocus] = useState(false)
     const onSubmit = (data: z.infer<typeof searchSchema>) => {
-        console.log(data)
+        const { search } = data;
+        setIsFocus(false)
+        if (!document.startViewTransition) {
+            router.push(`/home/buscar-catalogos?search=${encodeURIComponent(search)}`);
+            return;
+        }
+
+
+        document.startViewTransition(() => {
+            router.push(`/home/buscar-catalogos?search=${encodeURIComponent(search)}`);
+        });
+
+
     }
 
     return (
         <>
             <div
                 className={clsx(
-                    'fixed inset-0 z-10 bg-black/50 transition-opacity',
+                    'fixed inset-0 z-20 bg-black/50 transition-opacity',
                     { 'opacity-100 visible': isFocus, 'opacity-0 invisible': !isFocus }
                 )}
                 onClick={() => setIsFocus(false)}
             />
-            <div className="relative w-full  z-20" onBlur={(e) => {
+            <div className="relative w-full  z-30" onBlur={(e) => {
                 if (!e.currentTarget.contains(e.relatedTarget)) {
                     setIsFocus(false)
                 }

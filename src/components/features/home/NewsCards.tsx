@@ -1,6 +1,4 @@
 import clsx from "clsx"
-import { CardHome } from "./CardHome"
-import { Carousel, CarouselContent } from "@/components/ui/carousel"
 import { CarouselSectionNews } from "./CarouselSectionNews"
 
 const news = [
