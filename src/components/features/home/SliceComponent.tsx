@@ -37,7 +37,7 @@ export const SliceComponent = ({ elements, height }: { elements: news[], height:
                         <CarouselItem key={index} className={clsx("")}>
 
                             <Link href={element.link}>
-                                <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={element?.imagenportada || ''} alt="" /></div>
+                                <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={`/sliceImages/${element.codnovedad}.webp`} alt="Imagen Slice" /></div>
                             </Link>
 
                         </CarouselItem>

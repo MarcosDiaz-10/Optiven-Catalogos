@@ -32,7 +32,7 @@ const uploadSchema = z.object({
     descripcion: z.string().min(1, 'La descripcion no puede estar vacia').max(255, 'La descripcion no puede tener mas de 15 caracteres'),
     link: z.string().min(1, 'El link no puede estar vacio').max(255, 'El maximo de caracteres del link es 255'),
     enslice: z.boolean(),
-    codtipo: z.string(),
+    codtipo: z.string().min(1, 'El tipo no puede estar vacio'),
     entop: z.boolean(),
     imagenportada: z
         .instanceof(File, { message: "El logo del catálogo es obligatorio." })

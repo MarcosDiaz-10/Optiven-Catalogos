@@ -56,7 +56,7 @@ export default function PageGestionCatalogosUi() {
         const getProveedores = async () => {
 
             try {
-                const data = await fetch(BASE_URL + '/proveedores')
+                const data = await fetch(BASE_URL + '/proveedores/proveedores')
                 if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
                 const json = await data.json()
                 if (json?.error) {
@@ -155,7 +155,7 @@ export default function PageGestionCatalogosUi() {
             toast.error('No se pudo eliminar el catálogo.');
         }
     };
-    console.log(catalogosProveedores?.catalogosPorProveedor)
+
 
     return (
         <>

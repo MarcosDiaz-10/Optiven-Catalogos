@@ -63,7 +63,7 @@ export default function SearchCatalogosUi() {
         const getProveedores = async () => {
             setIsLoadingProveedores(true)
             try {
-                const data = await fetch(BASE_URL + '/proveedores')
+                const data = await fetch(BASE_URL + '/proveedores/proveedores')
                 if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
                 const json = await data.json()
                 if (json?.error) {

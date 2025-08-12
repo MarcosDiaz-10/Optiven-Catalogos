@@ -13,7 +13,7 @@ export const NavBar = () => {
             <div className="flex items-center gap-2">
                 <Link href='/home' className="flex items-center gap-2">
                     <Avatar>
-                        <AvatarImage src="/icon.jpg" alt="Optiven Catalogos" />
+                        <AvatarImage src={'/icon.jpg'} alt="Optiven Catalogos" />
                         <AvatarFallback>Optiven Catalogos Img</AvatarFallback>
                     </Avatar>
                     <div className="text-gray-300">

@@ -73,7 +73,7 @@ export default function PageUploadCatalogoUi() {
     useEffect(() => {
         const getDataProveedores = async () => {
             try {
-                const data = await fetch(BASE_URL + '/proveedores')
+                const data = await fetch(BASE_URL + '/proveedores/proveedores')
                 if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
                 const json = await data.json()
                 if (json?.error) {
@@ -91,7 +91,7 @@ export default function PageUploadCatalogoUi() {
 
         const getDataMarcas = async () => {
             try {
-                const data = await fetch(BASE_URL + '/marcas')
+                const data = await fetch(BASE_URL + '/marcas/marcas')
                 if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
                 const json = await data.json()
                 if (json?.error) {
@@ -108,7 +108,7 @@ export default function PageUploadCatalogoUi() {
         }
         const getDataPais = async () => {
             try {
-                const data = await fetch(BASE_URL + '/pais')
+                const data = await fetch(BASE_URL + '/pais/paises')
                 if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
                 const json = await data.json()
                 if (json?.error) {
