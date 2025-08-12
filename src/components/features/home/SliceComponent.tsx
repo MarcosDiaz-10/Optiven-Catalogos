@@ -18,7 +18,6 @@ export const SliceComponent = ({ elements, height }: { elements: news[], height:
     const autoplayPlugin = useRef(
         Autoplay({ delay: 4000, stopOnInteraction: false })
     )
-    console.log(elements)
     return (
         <Carousel
             plugins={[autoplayPlugin.current]}
@@ -37,7 +36,7 @@ export const SliceComponent = ({ elements, height }: { elements: news[], height:
                         <CarouselItem key={index} className={clsx("")}>
 
                             <Link href={element.link}>
-                                <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={`/sliceImages/${element.codnovedad}.webp`} alt="Imagen Slice" /></div>
+                                <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={element.rutarelativa} alt="Imagen Slice" /></div>
                             </Link>
 
                         </CarouselItem>

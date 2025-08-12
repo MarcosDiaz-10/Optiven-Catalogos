@@ -60,6 +60,7 @@ export interface news {
     link: string;
     nombretipo: string;
     titulo: string
+    rutarelativa: string;
 }
 
 export interface section {
