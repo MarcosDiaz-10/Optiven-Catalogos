@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import BASE_URL from "@/lib/getUrlEnv"
 import { section } from "@/types"
 import { ErrorComponent } from "@/components/ErrorComponent"
+import axiosInstance from "@/lib/api"
 
 // const news = [
 //     {
@@ -158,19 +159,17 @@ export const NewsCards = () => {
         const getData = async () => {
             // setIsLoading(true)
             try {
-                const data = await fetch(BASE_URL + '/catalogos/novedades')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los tipos de productos: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/catalogos/novedades')
+
+                if (data?.error) {
+                    setError(`Error al obtener las novedades: ${data.message}, intente de nuevo `);
                     return;
                 }
-                console.log(json)
-                setNews(json?.result || []);
+                setNews(data?.result || []);
 
 
             } catch (error) {
-                setError(`Error al obtener los tipos de productos: ${error}, intente de nuevo `)
+                setError(`Error al obtener las novedades dfgsdfg: ${error}, intente de nuevo `)
             } finally {
                 // setIsLoading(false)
             }

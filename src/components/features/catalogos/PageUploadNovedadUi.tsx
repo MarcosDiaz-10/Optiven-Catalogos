@@ -20,6 +20,7 @@ import { CatalogFileUploader } from "./CatalogFileUploader";
 import { useRouter } from "next/navigation";
 import { NovedadFileUploader } from "./NovedadFileUploader";
 import { Checkbox } from "@/components/ui/checkbox";
+import axiosInstance from "@/lib/api";
 const MAX_IMAGE_SIZE_MB = 5;
 const MAX_PDF_SIZE_MB = 50;
 const MAX_FILE_SIZE_BYTES = (sizeInMB: number) => sizeInMB * 1024 * 1024;
@@ -69,14 +70,12 @@ export default function PageUploadNovedadUi() {
         const getDataTipo = async () => {
             setIsLoadingTipos(true)
             try {
-                const data = await fetch(BASE_URL + '/catalogos/tipos')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los tipos: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/catalogos/tipos')
+                if (data?.error) {
+                    setError(`Error al obtener los tipos: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setTipo(json?.result || []);
+                setTipo(data?.result || []);
 
 
             } catch (error) {
@@ -96,17 +95,13 @@ export default function PageUploadNovedadUi() {
         formData.append('data', JSON.stringify(rest))
         formData.append('imagenportada', imagenportada)
         try {
-            const response = await fetch(BASE_URL + '/catalogos/novedades', {
-                method: 'POST',
-                body: formData,
-            });
+            const { data } = await axiosInstance.post('/catalogos/novedades', formData);
 
             // if (!response.ok) {
             //     const errorData = await response.json();
             //     setError(`Error: ${errorData.message}`)
             //     throw new Error(errorData.message || 'Error al subir el catálogo.');
             // }
-            const data = await response.json()
             if (data?.error) {
                 setError(`Error: ${data.message}`)
                 return;

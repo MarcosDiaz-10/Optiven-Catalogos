@@ -15,6 +15,8 @@ import { infoCatalogo } from "@/types";
 import LoaidngLayoutCatalogoUi from "@/components/loadings/LoadingLayoutCatalogoUi";
 import { Badge } from "@/components/ui/badge";
 import ScrollToTop from "@/components/utils/ScrollToTop";
+import DialogEnviarEmail from "./DialogEnviarEmail";
+import axiosInstance from "@/lib/api";
 
 
 export const LayoutCatalogoUi = ({ idProveedor, idCatalogo }: { idProveedor: string, idCatalogo: string }) => {
@@ -23,19 +25,19 @@ export const LayoutCatalogoUi = ({ idProveedor, idCatalogo }: { idProveedor: str
     const [error, setError] = useState<string | null>(null)
     const [catalogo, setCatalogo] = useState<infoCatalogo | null>(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [isOpenModalEmail, setIsOpenModalEmail] = useState(false)
 
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true)
             try {
-                const data = await fetch(BASE_URL + `/catalogos/${idProveedor}/${idCatalogo}`)
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener el catalogo: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get(`/catalogos/${idProveedor}/${idCatalogo}`)
+
+                if (data?.error) {
+                    setError(`Error al obtener el catalogo: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setCatalogo(json?.result?.[0] || []);
+                setCatalogo(data?.result?.[0] || []);
 
 
             } catch (error) {
@@ -227,10 +229,14 @@ export const LayoutCatalogoUi = ({ idProveedor, idCatalogo }: { idProveedor: str
                                                     <div className="p-6 bg-gradient-to-r from-slate-900 to-slate-800">
                                                         <div className="flex gap-3">
 
-                                                            <Button className="flex-1 bg-blue-600 hover:bg-blue-900 text-white rounded-full py-3">
+                                                            <Button
+                                                                className="flex-1 bg-blue-600 hover:bg-blue-900 text-white rounded-full py-3"
+                                                                onClick={() => { setIsOpenModalEmail(true) }}
+                                                            >
                                                                 <ShoppingCart className="h-5 w-5 mr-2" />
                                                                 Hacer Pedido
                                                             </Button>
+
                                                         </div>
                                                     </div>
                                                 </CardContent>
@@ -256,8 +262,8 @@ export const LayoutCatalogoUi = ({ idProveedor, idCatalogo }: { idProveedor: str
                             </div>
                         </main>}
                     </div>
+                    <DialogEnviarEmail isOrderModalOpen={isOpenModalEmail} setIsOrderModalOpen={setIsOpenModalEmail} nombreCatalogo={catalogo?.nomcatalogo ?? ''} setError={setError} correoEnvio={catalogo?.email ?? ''} />
                 </div>
-
             }
         </>
     )

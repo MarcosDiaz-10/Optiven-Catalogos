@@ -1,3 +1,5 @@
+import ProtectedRoute from "@/components/features/auth/ProtectedRoutes";
+
 export default function UploadLayout({
     children,
 }: Readonly<{
@@ -5,7 +7,9 @@ export default function UploadLayout({
 }>) {
     return (
         <>
-            <div >{children}</div>
+            <ProtectedRoute requiredRoles={['ADMIN']}>
+                <div >{children}</div>
+            </ProtectedRoute>
         </>
     );
 }

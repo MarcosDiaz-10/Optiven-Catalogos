@@ -1,9 +1,12 @@
+'use client'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { SearchComponent } from "./SearchComponent"
 import { Button } from "@/components/ui/button"
 import { LogOut } from "lucide-react"
 import { Suspense } from 'react'
 import Link from "next/link"
+import RoleGuard from "../auth/RoleGuard"
+import { useAuthStore } from "@/hooks/store/AuthStore"
 function SearchBarFallback() {
     return <>placeholder</>
 }
@@ -27,9 +30,12 @@ export const NavBar = () => {
                 </Suspense>
             </div>
             <div className="text-gray-300 flex justify-end items-center gap-5">
-                <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100"><Link href='/home/gestion-catalogos'>Gestion Catalogos</Link></Button>
+                <RoleGuard requiredRoles={['admin']}>
+                    <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100"><Link href='/home/gestion-catalogos'>Gestion Catalogos</Link></Button>
+                </RoleGuard>
+
                 <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100"><Link href='/home/buscar-catalogos'>Ver Catálogos</Link></Button>
-                <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100"><LogOut size={20} /></Button>
+                <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100" onClick={() => { useAuthStore.getState().logout() }}><Link href='/'><LogOut size={20} /></Link></Button>
             </div>
 
         </div>

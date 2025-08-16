@@ -16,6 +16,7 @@ import { ControlsPagination } from "./ControlsPagination";
 import { ErrorComponent } from "@/components/ErrorComponent";
 import { LoadingComponent } from "@/components/LoadingComponent";
 import Image from "next/image";
+import axiosInstance from "@/lib/api";
 
 
 
@@ -76,12 +77,11 @@ export const PdfViewer = ({ idProveedor, idCatalogo }: { idProveedor: string, id
         const getData = async () => {
             setIsLoading(true)
             try {
-                const data = await fetch(BASE_URL + `/catalogos/${idProveedor}/${idCatalogo}/images`)
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
+                const { data } = await axiosInstance.get(`/catalogos/${idProveedor}/${idCatalogo}/images`)
+                if (data?.error) throw new Error('Error con la conexion, intente de nuevo ')
 
-                setImages(json?.result)
-                setNumPages(json?.result?.length)
+                setImages(data?.result)
+                setNumPages(data?.result?.length)
 
                 setIsLoading(false)
 

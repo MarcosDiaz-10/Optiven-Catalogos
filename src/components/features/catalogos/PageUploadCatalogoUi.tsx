@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import z from 'zod'
 import { CatalogFileUploader } from "./CatalogFileUploader";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/lib/api";
 const MAX_IMAGE_SIZE_MB = 5;
 const MAX_PDF_SIZE_MB = 50;
 const MAX_FILE_SIZE_BYTES = (sizeInMB: number) => sizeInMB * 1024 * 1024;
@@ -73,14 +74,12 @@ export default function PageUploadCatalogoUi() {
     useEffect(() => {
         const getDataProveedores = async () => {
             try {
-                const data = await fetch(BASE_URL + '/proveedores/proveedores')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los proveedores: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/proveedores/proveedores')
+                if (data?.error) {
+                    setError(`Error al obtener los proveedores: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setProveedores(json?.result || []);
+                setProveedores(data?.result || []);
 
 
             } catch (error) {
@@ -91,14 +90,12 @@ export default function PageUploadCatalogoUi() {
 
         const getDataMarcas = async () => {
             try {
-                const data = await fetch(BASE_URL + '/marcas/marcas')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los marcas: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/marcas/marcas')
+                if (data?.error) {
+                    setError(`Error al obtener los marcas: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setMarcas(json?.result || []);
+                setMarcas(data?.result || []);
 
 
             } catch (error) {
@@ -108,14 +105,12 @@ export default function PageUploadCatalogoUi() {
         }
         const getDataPais = async () => {
             try {
-                const data = await fetch(BASE_URL + '/pais/paises')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los paises: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/pais/paises')
+                if (data?.error) {
+                    setError(`Error al obtener los paises: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setPais(json?.result || []);
+                setPais(data?.result || []);
 
 
             } catch (error) {
@@ -126,14 +121,12 @@ export default function PageUploadCatalogoUi() {
         const getDataTipo = async () => {
             setIsLoadingTipos(true)
             try {
-                const data = await fetch(BASE_URL + '/catalogos/tipos')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los tipos: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/catalogos/tipos')
+                if (data?.error) {
+                    setError(`Error al obtener los tipos: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setTipo(json?.result || []);
+                setTipo(data?.result || []);
 
 
             } catch (error) {
@@ -157,17 +150,15 @@ export default function PageUploadCatalogoUi() {
         formData.append('logocata', logoCatalogo)
         formData.append('pdfCatalogo', pdfCatalogo)
         try {
-            const response = await fetch(BASE_URL + '/catalogos/upload', {
-                method: 'POST',
-                body: formData,
-            });
+            const { data } = await axiosInstance.post('/catalogos/upload',
+                formData,
+            );
 
             // if (!response.ok) {
             //     const errorData = await response.json();
             //     setError(`Error: ${errorData.message}`)
             //     throw new Error(errorData.message || 'Error al subir el catálogo.');
             // }
-            const data = await response.json()
             if (data?.error) {
                 setError(`Error: ${data.message}`)
                 return;

@@ -14,6 +14,7 @@ import { Filter } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { catalogosType, proveedoresType, tiposType } from "@/types";
+import axiosInstance from "@/lib/api";
 
 export const dynamic = 'force-dynamic';
 
@@ -40,14 +41,12 @@ export default function SearchCatalogosUi() {
         const getData = async () => {
             setIsLoadingTipos(true)
             try {
-                const data = await fetch(BASE_URL + '/catalogos/tipos')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los tipos de productos: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/catalogos/tipos')
+                if (data?.error) {
+                    setError(`Error al obtener los tipos de productos: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setTipos(json?.result || []);
+                setTipos(data?.result || []);
 
 
             } catch (error) {
@@ -63,14 +62,12 @@ export default function SearchCatalogosUi() {
         const getProveedores = async () => {
             setIsLoadingProveedores(true)
             try {
-                const data = await fetch(BASE_URL + '/proveedores/proveedores')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los proveedores: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/proveedores/proveedores')
+                if (data?.error) {
+                    setError(`Error al obtener los proveedores: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setProveedores(json?.result || []);
+                setProveedores(data?.result || []);
 
 
             } catch (error) {
@@ -90,14 +87,12 @@ export default function SearchCatalogosUi() {
         const getCatalogos = async () => {
             setIsLoadingCatalogos(true)
             try {
-                const data = await fetch(BASE_URL + `/catalogos/search?${searchParams.toString()}`)
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los catalogos: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get(`/catalogos/search?${searchParams.toString()}`)
+                if (data?.error) {
+                    setError(`Error al obtener los catalogos: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setCatalogos(json?.result || []);
+                setCatalogos(data?.result || []);
 
 
             } catch (error) {

@@ -4,6 +4,7 @@ import { SliceComponent } from "./SliceComponent";
 import { news } from "@/types";
 import BASE_URL from "@/lib/getUrlEnv";
 import { ErrorComponent } from "@/components/ErrorComponent";
+import axiosInstance from "@/lib/api";
 
 
 
@@ -16,19 +17,18 @@ export default function SectionSliceNovedades() {
         const getData = async () => {
 
             try {
-                const data = await fetch(BASE_URL + '/catalogos/novedades-slice')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los tipos de productos: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/catalogos/novedades-slice')
+
+
+                if (data?.error) {
+                    setError(`Error al obtener las novedades-slice : ${data.message}, intente de nuevo `);
                     return;
                 }
-                console.log(json)
-                setNews(json?.result || []);
+                setNews(data?.result || []);
 
 
             } catch (error) {
-                setError(`Error al obtener los tipos de productos: ${error}, intente de nuevo `)
+                setError(`Error al obtener las novedades-slice  kdsjfkl: ${error}, intente de nuevo `)
             } finally {
 
             }
@@ -36,7 +36,6 @@ export default function SectionSliceNovedades() {
         getData()
     }, [])
 
-    console.log(news)
 
     return (
         <>

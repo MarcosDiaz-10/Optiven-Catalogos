@@ -13,6 +13,7 @@ import Link from "next/link"
 import { ForwardRefExoticComponent, RefAttributes, useEffect, useState } from "react"
 import { toast } from "sonner"
 import { VolverButton } from "./VolverButton"
+import axiosInstance from "@/lib/api"
 
 interface stausConfigType {
     label: string
@@ -56,14 +57,12 @@ export default function PageGestionCatalogosUi() {
         const getProveedores = async () => {
 
             try {
-                const data = await fetch(BASE_URL + '/proveedores/proveedores')
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener los proveedores: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.get('/proveedores/proveedores')
+                if (data?.error) {
+                    setError(`Error al obtener los proveedores: ${data.message}, intente de nuevo `);
                     return;
                 }
-                setProveedores(json?.result || []);
+                setProveedores(data?.result || []);
 
 
             } catch (error) {
@@ -80,22 +79,14 @@ export default function PageGestionCatalogosUi() {
         const getData = async () => {
             // setIsLoading(true)
             try {
-                const data = await fetch(BASE_URL + `/catalogos/catalogos-proveedores`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-
-                    },
-                    body: JSON.stringify({ proveedores: proveedores.map(proveedor => proveedor.codcasaco.trim()) })
-                })
-                if (!data.ok) throw new Error('Error con la conexion, intente de nuevo ')
-                const json = await data.json()
-                if (json?.error) {
-                    setError(`Error al obtener el catalogo: ${json.message}, intente de nuevo `);
+                const { data } = await axiosInstance.post(`/catalogos/catalogos-proveedores`, { proveedores: proveedores.map(proveedor => proveedor.codcasaco.trim()) })
+                console.log({ data })
+                if (data?.error) {
+                    setError(`Error al obtener el catalogo: ${data.message}, intente de nuevo `);
                     return;
                 }
 
-                setCatalogosProveedores(json?.result || {});
+                setCatalogosProveedores(data?.result || {});
 
 
             } catch (error) {
@@ -114,11 +105,9 @@ export default function PageGestionCatalogosUi() {
     const onDeleteCatalogo = async (idProveedor: string, idCatalogo: string, procesado: string) => {
         try {
 
-            const response = await fetch(`${BASE_URL}/catalogos/${idProveedor}/${idCatalogo}`, {
-                method: 'DELETE',
-            });
+            const { status } = await axiosInstance.delete(`${BASE_URL}/catalogos/${idProveedor}/${idCatalogo}`);
 
-            if (!response.ok) {
+            if (status !== 200) {
                 throw new Error('Error con la conexión, no se pudo eliminar el catálogo.');
             }
 
