@@ -255,7 +255,7 @@ export default function DialogEnviarEmail({ isOrderModalOpen, setIsOrderModalOpe
         `
 
         const requestBody = {
-            para: "diazelhalabimarcosa@gmail.com",
+            para: correoEnvio,
             asunto: `Pedido de catalogo ${nombreCatalogo}`,
             cuerpo: body
 
