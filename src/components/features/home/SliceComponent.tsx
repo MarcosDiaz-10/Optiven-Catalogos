@@ -35,9 +35,7 @@ export const SliceComponent = ({ elements, height }: { elements: news[], height:
                     elements.map((element, index) => (
                         <CarouselItem key={index} className={clsx("")}>
 
-                            <Link href={element.link}>
-                                <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={element.rutarelativa} alt="Imagen Slice" /></div>
-                            </Link>
+                            <div className="h-full w-full"><Image width={400} height={400} className="h-full w-full object-cover " src={element.rutarelativa} alt="Imagen Slice" /></div>
 
                         </CarouselItem>
                     ))
