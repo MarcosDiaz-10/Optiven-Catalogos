@@ -44,6 +44,7 @@ const uploadSchema = z.object({
 
 export default function PageUploadNovedadUi() {
     const [formKey, setFormKey] = useState(0);
+    const [isLoading, setIsLoading] = useState(false)
     const form = useForm<z.infer<typeof uploadSchema>>({
         resolver: zodResolver(uploadSchema),
         defaultValues: {
@@ -90,6 +91,7 @@ export default function PageUploadNovedadUi() {
 
     const onSubmit = async (data: z.infer<typeof uploadSchema>) => {
         setError(null)
+        setIsLoading(true)
         const formData = new FormData();
         const { imagenportada, ...rest } = data
         formData.append('data', JSON.stringify(rest))
@@ -111,6 +113,8 @@ export default function PageUploadNovedadUi() {
         } catch (error: any) {
             console.error(error);
             setError(`Error: ${error.message}`);
+        } finally {
+            setIsLoading(false)
         }
         form.reset()
     }
@@ -357,10 +361,10 @@ export default function PageUploadNovedadUi() {
                                     </Button>
                                     <Button
                                         type="submit"
-                                        disabled={form.formState.isSubmitSuccessful}
+                                        disabled={isLoading}
                                         className="px-8 py-3 bg-[#0d0443] hover:bg-blue-900 text-white transition-all duration-200 hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        {form.formState.isSubmitSuccessful ? (
+                                        {isLoading ? (
                                             <div className="flex items-center space-x-2">
                                                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                                                 <span>Subiendo...</span>
