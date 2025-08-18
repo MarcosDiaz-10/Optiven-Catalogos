@@ -45,6 +45,8 @@ const uploadSchema = z.object({
 export default function PageUploadNovedadUi() {
     const [formKey, setFormKey] = useState(0);
     const [isLoading, setIsLoading] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
+
     const form = useForm<z.infer<typeof uploadSchema>>({
         resolver: zodResolver(uploadSchema),
         defaultValues: {
@@ -92,6 +94,7 @@ export default function PageUploadNovedadUi() {
     const onSubmit = async (data: z.infer<typeof uploadSchema>) => {
         setError(null)
         setIsLoading(true)
+        setIsSubmitted(false);
         const formData = new FormData();
         const { imagenportada, ...rest } = data
         formData.append('data', JSON.stringify(rest))
@@ -108,7 +111,7 @@ export default function PageUploadNovedadUi() {
                 setError(`Error: ${data.message}`)
                 return;
             }
-
+            setIsSubmitted(true);
             setFormKey(prevKey => prevKey + 1);
         } catch (error: any) {
             console.error(error);
@@ -169,7 +172,7 @@ export default function PageUploadNovedadUi() {
                                     : 'opacity-0 pointer-events-none translate-y-2'
                             )}>
                                 {
-                                    form.formState.isSubmitSuccessful
+                                    isSubmitted
                                         ? <div className="bg-green-300 border border-green-800 text-green-800 p-3 rounded-2xl">
                                             Novedad Subido Correctamente!
                                         </div>

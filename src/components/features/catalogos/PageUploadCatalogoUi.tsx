@@ -61,7 +61,8 @@ export default function PageUploadCatalogoUi() {
     })
 
     const router = useRouter()
-
+    const [isLoading, setIsLoading] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
     const [proveedores, setProveedores] = useState<proveedoresType[]>([])
     const [marcas, setMarcas] = useState<marcasType[]>([])
     const [pais, setPais] = useState<paisType[]>([])
@@ -144,6 +145,7 @@ export default function PageUploadCatalogoUi() {
 
     const onSubmit = async (data: z.infer<typeof uploadSchema>) => {
         setError(null)
+        setIsSubmitted(false)
         const formData = new FormData();
         const { logoCatalogo, pdfCatalogo, ...rest } = data
         formData.append('data', JSON.stringify(rest))
@@ -163,7 +165,7 @@ export default function PageUploadCatalogoUi() {
                 setError(`Error: ${data.message}`)
                 return;
             }
-
+            setIsSubmitted(true);
             setFormKey(prevKey => prevKey + 1);
         } catch (error: any) {
             console.error(error);
@@ -222,7 +224,7 @@ export default function PageUploadCatalogoUi() {
                                     : 'opacity-0 pointer-events-none translate-y-2'
                             )}>
                                 {
-                                    form.formState.isSubmitSuccessful
+                                    isSubmitted
                                         ? <div className="bg-green-300 border border-green-800 text-green-800 p-3 rounded-2xl">
                                             Catalogo Subido Correctamente!
                                         </div>
@@ -429,10 +431,10 @@ export default function PageUploadCatalogoUi() {
                                     </Button>
                                     <Button
                                         type="submit"
-                                        disabled={form.formState.isSubmitSuccessful}
+                                        disabled={isLoading}
                                         className="px-8 py-3 bg-[#0d0443] hover:bg-blue-900 text-white transition-all duration-200 hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        {form.formState.isSubmitSuccessful ? (
+                                        {isLoading ? (
                                             <div className="flex items-center space-x-2">
                                                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                                                 <span>Subiendo...</span>
