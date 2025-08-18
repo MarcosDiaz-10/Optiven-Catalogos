@@ -30,7 +30,7 @@ export default function LoginOptiven({ token }: { token: string }) {
                 });
                 // Si la respuesta es exitosa, redirigir o mostrar un mensaje
             } catch (error) {
-                router.push('/login');
+                router.push('/');
                 console.error("Error al iniciar sesión:", error);
             }
         };
