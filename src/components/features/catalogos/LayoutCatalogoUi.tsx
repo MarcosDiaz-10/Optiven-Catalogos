@@ -8,7 +8,6 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Instagram, Mail, MessageCircle, Phone, ShoppingCart } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import BASE_URL from "@/lib/getUrlEnv";
 import { ErrorComponent } from "@/components/ErrorComponent";
 
 import { infoCatalogo } from "@/types";

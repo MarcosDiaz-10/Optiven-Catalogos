@@ -2,7 +2,6 @@
 import clsx from "clsx"
 import { CarouselSectionNews } from "./CarouselSectionNews"
 import { useEffect, useState } from "react"
-import BASE_URL from "@/lib/getUrlEnv"
 import { section } from "@/types"
 import { ErrorComponent } from "@/components/ErrorComponent"
 import axiosInstance from "@/lib/api"

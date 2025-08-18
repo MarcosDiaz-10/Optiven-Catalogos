@@ -6,7 +6,6 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
-import BASE_URL from "@/lib/getUrlEnv";
 import { LoadingComponent } from "@/components/LoadingComponent";
 import { ErrorComponent } from "@/components/ErrorComponent";
 import { Card, CardContent } from "@/components/ui/card";

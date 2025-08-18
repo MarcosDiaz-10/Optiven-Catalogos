@@ -37,7 +37,7 @@ export default function LoginOptiven({ token }: { token: string }) {
 
         login();
 
-    }, [])
+    }, [router, token])
     return (
         <div>Cargando...</div>
     )

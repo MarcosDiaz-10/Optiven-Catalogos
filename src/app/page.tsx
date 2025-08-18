@@ -2,6 +2,7 @@
 import { LoginForm } from "@/components/features/auth/login";
 import SideImg from "../assets/Logo_optiven8.jpg";
 import { Glasses } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -30,7 +31,9 @@ export default function Home() {
         </div>
       </div>
       <div className="relative bg-white hidden lg:flex lg:justify-center lg:items-center">
-        <img
+        <Image
+          width={1000}
+          height={1000}
           src={SideImg.src}
           alt="Image"
           className=" inset-0  h-[100%] w-[100%] object-contain dark:brightness-[0.2] dark:grayscale"

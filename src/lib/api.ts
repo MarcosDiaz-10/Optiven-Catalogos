@@ -8,6 +8,7 @@ const axiosInstance = axios.create({
 
 
 interface TypeFailedQueue {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     reject: (reason?: any) => void,
     resolve: (value: unknown) => void
 }
@@ -26,7 +27,7 @@ axiosInstance.interceptors.request.use(
 
 let isRefreshing = false;
 let failedQueue: TypeFailedQueue[] = [];
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const processQueue = (error: any, token = null) => {
     failedQueue.forEach(prom => {
         if (error) {
@@ -65,8 +66,8 @@ axiosInstance.interceptors.response.use(
             console.log({ refreshToken });
             return new Promise(async (resolve, reject) => {
                 try {
-                    console.log('llega aqui')
-                    const { data, status } = await axios.post(BASE_URL + '/users/refresh', { refreshToken }, {
+
+                    const { data } = await axios.post(BASE_URL + '/users/refresh', { refreshToken }, {
                         headers: {
                             'Authorization': 'Bearer ' + refreshToken
                         }

@@ -3,8 +3,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Link from "next/link";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,7 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
-import BASE_URL from "@/lib/getUrlEnv";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AlertCircle } from "lucide-react";
@@ -53,7 +50,7 @@ export function LoginForm({
         if (isAuthenticated) {
             router.push('/home')
         }
-    }, [])
+    }, [isAuthenticated, router])
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setError(false)
         setMsgError('')
@@ -73,7 +70,7 @@ export function LoginForm({
             login(access_token, refresh_token)
             localStorage.setItem('refresh_token_catalogos', refresh_token)
             router.push('/home')
-
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             setError(true)
             console.log(error)

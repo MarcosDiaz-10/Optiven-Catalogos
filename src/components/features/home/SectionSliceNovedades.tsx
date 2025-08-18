@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { SliceComponent } from "./SliceComponent";
 import { news } from "@/types";
-import BASE_URL from "@/lib/getUrlEnv";
 import { ErrorComponent } from "@/components/ErrorComponent";
 import axiosInstance from "@/lib/api";
 

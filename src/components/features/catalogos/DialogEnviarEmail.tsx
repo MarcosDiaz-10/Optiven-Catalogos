@@ -1,6 +1,5 @@
 'use client'
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -9,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import BASE_URL from "@/lib/getUrlEnv";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Label } from "@radix-ui/react-label";
 import { Building, MapPin, Package, Send, ShoppingCart, User } from "lucide-react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -280,7 +278,7 @@ export default function DialogEnviarEmail({ isOrderModalOpen, setIsOrderModalOpe
                 return;
             }
 
-
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.error(error);
             setError(`Error: ${error.message}`);
