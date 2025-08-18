@@ -80,7 +80,6 @@ export default function PageGestionCatalogosUi() {
             // setIsLoading(true)
             try {
                 const { data } = await axiosInstance.post(`/catalogos/catalogos-proveedores`, { proveedores: proveedores.map(proveedor => proveedor.codcasaco.trim()) })
-                console.log({ data })
                 if (data?.error) {
                     setError(`Error al obtener el catalogo: ${data.message}, intente de nuevo `);
                     return;

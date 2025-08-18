@@ -115,7 +115,11 @@ export default function PageUploadNovedadUi() {
             setFormKey(prevKey => prevKey + 1);
         } catch (error: any) {
             console.error(error);
-            setError(`Error: ${error.message}`);
+
+            if (error.response.status !== 504) {
+
+                setError(`Error: ${error.message}`);
+            }
         } finally {
             setIsLoading(false)
         }

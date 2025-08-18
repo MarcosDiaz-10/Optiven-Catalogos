@@ -43,7 +43,6 @@ const ProtectedRoute = ({ children, requiredRoles }: Readonly<{
     if (isAuthenticated && hasRequiredRole) {
         return <>{children}</>;
     }
-    console.log(isAuthenticated)
     // En otros casos (mientras redirige), no mostrar nada
     return null;
 };

@@ -16,7 +16,6 @@ interface TypeFailedQueue {
 axiosInstance.interceptors.request.use(
     (config) => {
         const token = useAuthStore.getState().accessToken;
-        console.log({ token })
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -63,7 +62,6 @@ axiosInstance.interceptors.response.use(
                 useAuthStore.getState().logout();
                 return Promise.reject(error);
             }
-            console.log({ refreshToken });
             return new Promise(async (resolve, reject) => {
                 try {
 

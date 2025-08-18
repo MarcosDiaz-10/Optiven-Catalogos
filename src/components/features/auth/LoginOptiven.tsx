@@ -10,7 +10,6 @@ export default function LoginOptiven({ token }: { token: string }) {
 
         const login = async () => {
             try {
-                console.log(token)
                 const { data } = await axiosInstance.post('/users/login-optiven', { token });
                 if (data.error) {
                     throw new Error(data.message);
