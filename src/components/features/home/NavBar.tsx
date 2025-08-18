@@ -30,7 +30,7 @@ export const NavBar = () => {
                 </Suspense>
             </div>
             <div className="text-gray-300 flex justify-end items-center gap-5">
-                <RoleGuard requiredRoles={['admin']}>
+                <RoleGuard requiredRoles={['ADMIN']}>
                     <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100"><Link href='/home/gestion-catalogos'>Gestion Catalogos</Link></Button>
                 </RoleGuard>
 
