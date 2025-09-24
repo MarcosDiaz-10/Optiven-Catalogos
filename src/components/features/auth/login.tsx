@@ -44,6 +44,7 @@ export function LoginForm({
 
     const [error, setError] = useState(false)
     const [msg, setMsgError] = useState('')
+    const [onSubmitLoading, setOnSubmitLoading] = useState(false)
     const login = useAuthStore(state => state.login)
     const isAuthenticated = useAuthStore(state => state.isAuthenticated)
     useEffect(() => {
@@ -52,6 +53,7 @@ export function LoginForm({
         }
     }, [isAuthenticated, router])
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
+        setOnSubmitLoading(true)
         setError(false)
         setMsgError('')
         try {
@@ -78,6 +80,8 @@ export function LoginForm({
             console.log(response?.data?.Error)
             const messageError = (response?.data?.Error) ? response?.data.msg : message
             setMsgError(messageError)
+        } finally {
+            setOnSubmitLoading(false)
         }
 
 
@@ -144,8 +148,8 @@ export function LoginForm({
                             </FormItem>
                         )}
                     />
-                    <Button className="w-full" type="submit" >
-                        Login
+                    <Button className="w-full" type="submit" disabled={onSubmitLoading}>
+                        {onSubmitLoading ? 'Cargando...' : 'Login'}
                     </Button>
                 </div>
                 <div className="text-center text-sm">
