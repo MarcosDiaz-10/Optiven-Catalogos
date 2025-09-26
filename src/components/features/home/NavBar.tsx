@@ -24,18 +24,25 @@ export const NavBar = () => {
                     </div>
                 </Link>
             </div>
-            <div >
+            <div className="px-5">
                 <Suspense fallback={<SearchBarFallback />}>
                     <SearchComponent />
                 </Suspense>
             </div>
             <div className="text-gray-300 flex justify-end items-center gap-5">
+
                 <RoleGuard requiredRoles={['ADMIN']}>
                     <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100"><Link href='/home/gestion-catalogos'>Gestion Catalogos</Link></Button>
                 </RoleGuard>
 
+
+
                 <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100"><Link href='/home/buscar-catalogos'>Ver Catálogos</Link></Button>
+
+
+
                 <Button className="bg-gray-700 text-gray-300 hover:bg-gray-900 hover:text-gray-100" onClick={() => { useAuthStore.getState().logout() }}><Link href='/'><LogOut size={20} /></Link></Button>
+
             </div>
 
         </div>
